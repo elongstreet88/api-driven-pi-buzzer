@@ -27,5 +27,4 @@ def api_alarm_off():
     sleep(1)
     return jsonify("off")
 
-
 app.run()
