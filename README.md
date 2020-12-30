@@ -12,5 +12,5 @@ docker buildx build --platform linux/amd64,linux/arm64,linux/386,linux/arm/v7,li
 
 # Docker Run
 ```
-docker run --device /dev/gpiomem -p 5000:5000/tcp elongstreet88/api-driven-pi-buzzer^C
+docker run --device /dev/gpiomem -p 5000:5000/tcp elongstreet88/api-driven-pi-buzzer
 ```
