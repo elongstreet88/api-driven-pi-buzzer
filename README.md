@@ -18,7 +18,9 @@ docker buildx inspect --bootstrap
 ```
 
 # Docker Build
+```
 ./build.sh
+```
 
 # Docker Run
 ```
