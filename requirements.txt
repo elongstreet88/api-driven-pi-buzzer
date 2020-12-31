@@ -1,2 +1,4 @@
 Flask
 gpiozero
+dht11
+gpio

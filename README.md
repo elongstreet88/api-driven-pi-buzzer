@@ -1,7 +1,7 @@
 # Overview
 Simple web based API driven buzzer/led for a RasberryPI.
 Only tested on version 4.
-Uses flask and the GPIO library.
+Uses flask and the gpiozero library.
 
 - Buzzer is expected to be on pin 17
 

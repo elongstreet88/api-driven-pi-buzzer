@@ -2,7 +2,10 @@
 # We use the keyword 'FROM' to do that.
 # In our example, we want import the python image.
 # So we write 'python' for the image name and 'latest' for the version.
-FROM python:3.8.0-slim
+FROM python:3.8-alpine
+
+RUN set -ex && \
+    apk add --no-cache gcc musl-dev
 
 # In order to launch our python code, we must import it into our image.
 # We use the keyword 'COPY' to do that.
