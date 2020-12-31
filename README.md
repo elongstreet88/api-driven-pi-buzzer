@@ -7,7 +7,11 @@ Uses flask and the gpiozero library.
 
 To execute from docker on a PI, use:
 ```
+#currently not working with temp sensor! Investigating how to deal with this
 docker run --device /dev/gpiomem -p 5000:5000/tcp elongstreet88/api-driven-pi-buzzer
+
+#not recommended but will work:
+docker run --privileged -p 5000:5000/tcp elongstreet88/api-driven-pi-buzzer
 ```
 
 # Docker Multi Environment Seutp
