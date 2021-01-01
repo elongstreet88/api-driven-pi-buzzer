@@ -6,7 +6,39 @@ from time import sleep
 from gpiozero import *
 
 #Humidity Sensor
-import Adafruit_DHT
+#Borrowed from [https://pypi.org/project/dht11/]
+import RPi.GPIO as GPIO
+import dht11
+
+#Functions
+def read_dht11(pin):
+    GPIO.setmode(GPIO.BCM)
+    instance = dht11.DHT11(pin = pin)
+
+    #We have to try this a few times as it doesn't always work
+    #See [https://raspberrypi.stackexchange.com/questions/80037/frequent-missing-data-error-on-dht11]
+    max_attempts = 10
+    while True:
+        result = instance.read()
+        if result.is_valid():
+            return result
+        max_attempts -= 1
+        
+    return result
+
+def read_dht11_temperature(pin):
+    result = read_dht11(pin=pin)
+    if result.is_valid():
+        return "%-3.1f°F" % (result.temperature * 1.8 + 32)
+    else:
+        return "Error: %d" % result.error_code
+
+def read_dht11_humidity(pin):
+    result = read_dht11(pin=pin)
+    if result.is_valid():
+        return "%-3.1f%%" % result.humidity
+    else:
+        return "Error: %d" % result.error_code
 
 #Flask
 app = flask.Flask(__name__)
@@ -43,16 +75,12 @@ def api_alarm_off():
 
 @app.route('/api/v1/sensor/temperature', methods=['GET'])
 def api_sensor_temperature():
-    sensor = Adafruit_DHT.DHT11
-    pin = 27
-    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-    return jsonify(temperature)
+    result = read_dht11_temperature(pin=27)
+    return result
 
 @app.route('/api/v1/sensor/humidity', methods=['GET'])
 def api_sensor_humidity():
-    sensor = Adafruit_DHT.DHT11
-    pin = 27
-    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-    return jsonify(humidity)
+    result = read_dht11_humidity(pin=27)
+    return result
 
 app.run(host='0.0.0.0')

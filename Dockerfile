@@ -5,10 +5,7 @@
 FROM python:3.8-alpine
 
 RUN set -ex && \
-    apk add --no-cache git gcc musl-dev
-
-RUN git clone https://github.com/elongstreet88/Adafruit_Python_DHT
-RUN cd Adafruit_Python_DHT/; python3 setup.py install --force-pi
+    apk add --no-cache gcc musl-dev
 
 # In order to launch our python code, we must import it into our image.
 # We use the keyword 'COPY' to do that.
